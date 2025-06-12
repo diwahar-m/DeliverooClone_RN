@@ -83,7 +83,7 @@ export default function HomeScreen() {
         {/* Offers near you */}
         <FeaturedRow
           id="125"
-          title="Featured"
+          title="Featureed"
           description="Paid placements from our partners"
           featuredCategory="featured"
         />
