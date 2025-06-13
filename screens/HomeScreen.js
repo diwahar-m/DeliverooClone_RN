@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import React, {useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   AdjustmentsVerticalIcon,
@@ -16,15 +16,42 @@ import {
 } from 'react-native-heroicons/outline';
 import Categories from '../components/categories';
 import FeaturedRow from '../components/FeaturedRow';
+import client from '../sanity';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const [featuredCategories, setFeaturedCategories] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
+  async function getCategoryList() {
+    await client
+      .fetch(
+        `*[_type == "featured"] {
+      ...,
+      restaurants[]
+      => {
+        ...,
+        dish[] =>{...}
+          }
+        }`,
+      )
+      .then(data => {
+        console.log('data: ', data);
+        setFeaturedCategories(data);
+      })
+      .catch(err => console.error(err));
+  }
+
+  useEffect(() => {
+    getCategoryList();
+  }, []);
+
+  console.log(featuredCategories);
 
   return (
     // for ios
