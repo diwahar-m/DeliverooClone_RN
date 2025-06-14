@@ -28,7 +28,7 @@ const BasketScreen = () => {
     }, {});
 
     setGroupedItemsInBasket(groupedItems);
-  }, []);
+  }, [items]);
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -59,12 +59,12 @@ const BasketScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <ScrollView>
+        <ScrollView className="divide-y divide-gray-200">
           {Object.entries(groupedItemsInBasket).map(([key, items]) => (
             <View
               key={key}
               className="flex-row items-center space-x-3 bg-white py-2 px-5">
-              <Text>{items.length} *</Text>
+              <Text className="text-[#00CCBB]">{items.length} *</Text>
               <Image
                 source={{uri: urlFor(items[0]?.image).url()}}
                 className="h-12 w-12 rounded-full"
@@ -82,6 +82,11 @@ const BasketScreen = () => {
             </View>
           ))}
         </ScrollView>
+        <View>
+          <View>
+            <Text>SubTotal</Text>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
