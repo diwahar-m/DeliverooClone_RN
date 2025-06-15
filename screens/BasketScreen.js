@@ -101,6 +101,13 @@ const BasketScreen = () => {
             <Text className="text-gray-400">Rs: {basketTotal + 50}</Text>
           </View>
         </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('PreparingOrder')}
+          className="rounded-lg bg-[#00CCBB] p-4">
+          <Text className="text-center text-white text-lg font-bold">
+            Place Order
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

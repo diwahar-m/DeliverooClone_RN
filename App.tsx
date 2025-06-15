@@ -9,6 +9,7 @@ import RestaurantScreen from './screens/RestaurantScreen';
 import {store} from './store';
 import {Provider} from 'react-redux';
 import BasketScreen from './screens/BasketScreen';
+import PreparingOrderScreen from './screens/PreparingOrderScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,12 @@ function App(): React.JSX.Element {
               component={BasketScreen}
             />
           </Stack.Group>
+
+          <Stack.Screen
+            options={{presentation: 'fullScreenModal', headerShown: false}}
+            name="PreparingOrder"
+            component={PreparingOrderScreen}
+          />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>
