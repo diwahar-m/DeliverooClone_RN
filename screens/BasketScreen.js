@@ -10,7 +10,11 @@ import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectRestaurant} from '../features/restaurantSlice';
-import {removeFromBasket, selectBasketItems} from '../features/basketSlice';
+import {
+  removeFromBasket,
+  selectBasketItems,
+  selectBasketTotal,
+} from '../features/basketSlice';
 import {XCircleIcon} from 'react-native-heroicons/solid';
 import {urlFor} from '../sanity';
 
@@ -20,6 +24,7 @@ const BasketScreen = () => {
   const items = useSelector(selectBasketItems);
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
   const dispatch = useDispatch();
+  const basketTotal = useSelector(selectBasketTotal);
 
   useEffect(() => {
     const groupedItems = items.reduce((results, item) => {
@@ -82,9 +87,18 @@ const BasketScreen = () => {
             </View>
           ))}
         </ScrollView>
-        <View>
-          <View>
-            <Text>SubTotal</Text>
+        <View className="p-5 bg-white mt-5 space-y-4">
+          <View className="flex-row justify-between">
+            <Text className="text-gray-400">SubTotal</Text>
+            <Text className="text-gray-400">Rs: {basketTotal}</Text>
+          </View>
+          <View className="flex-row justify-between">
+            <Text className="text-gray-400">Delivery Fee</Text>
+            <Text className="text-gray-400">Rs: {50}</Text>
+          </View>
+          <View className="flex-row justify-between">
+            <Text className="text-gray-400">Order Total</Text>
+            <Text className="text-gray-400">Rs: {basketTotal + 50}</Text>
           </View>
         </View>
       </View>
