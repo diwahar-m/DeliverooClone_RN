@@ -1,12 +1,11 @@
-import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import {View, Text, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {selectRestaurant} from '../features/restaurantSlice';
 import {XMarkIcon} from 'react-native-heroicons/solid';
-import {Image} from 'react-native-svg';
 import * as Progress from 'react-native-progress';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 const DeliveryScreen = () => {
   const navigation = useNavigation();
@@ -41,27 +40,36 @@ const DeliveryScreen = () => {
         </View>
       </SafeAreaView>
 
-      {/* <MapView
-        // initialRegion={{
-        //   latitude: 37.78825,
-        //   longitude: -122.4324,
-        //   latitudeDelta: 0.0922,
-        //   longitudeDelta: 0.0421,
-        // }}
-        style={{height: 400, width: 400}}
-        className="flex-1 -mt-10 z-0"
-        mapType="mutedStandard"
-      /> */}
       <MapView
-        style={{height: 400, width: 400}}
+        style={{height: '63%', width: '100%', marginTop: -10}}
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        mapType="mutedStandard"
         provider={PROVIDER_GOOGLE}
-      />
+        className="flex-1 -mt-10 z-0">
+        <Marker
+          coordinate={{latitude: restaurant.lat, longitude: restaurant.long}}
+          title={restaurant.title}
+          description={restaurant.short_description}
+          identifier="origin"
+          pinColor="#00CCBB"
+        />
+      </MapView>
+      <SafeAreaView className="bg-white flex-row items-center space-x-5 h-20">
+        <Image
+          source={{uri: 'https://links.papareact.com/wru'}}
+          className="h-12 w-12 bg-gray-300 p-4 rounded-full ml-5"
+        />
+        <View className="flex-1">
+          <Text className="text-lg">Maarimuthu</Text>
+          <Text className="text-gray-400"> Your rider</Text>
+        </View>
+        <Text className="text-[#00CCBB] text-lg mr-5 font-bold">Call</Text>
+      </SafeAreaView>
     </View>
   );
 };
